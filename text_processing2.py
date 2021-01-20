@@ -28,7 +28,21 @@ def digits_to_words(input_string):
             >>> tp2.digits_to_words(digits_str2)
             'three one four one five'
     """
-    digit_string = None
+    digit_num = list()
+    tmp_list = input_string.lower().split()
+    for i in tmp_list:
+        for j in i:
+            if j.isdecimal() == True:
+                digit_num.append(str(j))
+
+    digit_string = ''
+    num_dict = {'0' : 'zero','1' : 'one', '2' :'two', '3' : 'three', 
+    '4' : 'four', '5' : 'five', '6' : 'six', '7' : 'seven', '8' : 'eight', '9' : 'nine'}
+    for i in range(len(digit_num)):
+        if i != len(digit_num) - 1:
+            digit_string += num_dict[digit_num[i]] + ' '
+        else: digit_string += num_dict[digit_num[i]]
+
     return digit_string
 
 
@@ -64,5 +78,21 @@ def to_camel_case(underscore_str):
             >>> tp2.to_camel_case(underscore_str3)
             "alreadyCamel"
     """
+    word_list = list()
+    tmp_string = ''
+    for i in underscore_str:
+        if i == '_' and tmp_string is not '':
+            word_list.append(tmp_string.lower())
+            tmp_string = ''
+        elif i != '_':
+            tmp_string += i
+    
+    word_list.append(tmp_string)
     camelcase_str = None
+    for i in range(len(word_list)):
+        if i == 0: camelcase_str = word_list[i]; continue
+        for j in range(len(word_list[i])):
+            if j == 0 : camelcase_str += word_list[i][0].upper(); continue
+            camelcase_str += word_list[i][j]
+
     return camelcase_str
